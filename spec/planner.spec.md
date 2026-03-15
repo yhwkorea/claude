@@ -21,8 +21,12 @@
 - `~/.claude/agent-memory/planner/` 과거 실패 기록 (있는 경우 필독)
 
 ## 출력 (Output)
-- 구현 계획 문서 (`{cwd}/.claude/workspace.md`)
-  - 상태(state: executing), 목표, 단계별 태스크(파일 경로 + 완료 기준), 체크리스트, 컨텍스트 포함
+- **`{cwd}/.claude/workspace.md`** — Level 0 DFD + 전체 계획 (사람용)
+  - 외부 입력/출력만 표현한 Context Diagram 포함
+  - 상태(state: executing), 목표, 단계별 태스크, 체크리스트, 컨텍스트
+- **`{cwd}/.claude/dfd/level1.md`** — 주요 프로세스 간 데이터 흐름 (에이전트용)
+- **`{cwd}/.claude/dfd/level2.md`** — 에이전트 단위 세부 흐름 (에이전트용, 필요 시)
+- **`{cwd}/.claude/dfd/level3.md`** — 에이전트 내부 로직 흐름 (에이전트용, 필요 시)
 - 사용자 확인 요청 (계획 생성 후 반드시 승인 대기)
 
 ## 성공 기준
