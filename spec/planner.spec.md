@@ -27,6 +27,7 @@
 - **`{cwd}/.claude/dfd/level1.md`** — 주요 프로세스 간 데이터 흐름 (에이전트용)
 - **`{cwd}/.claude/dfd/level2.md`** — 에이전트 단위 세부 흐름 (에이전트용, 필요 시)
 - **`{cwd}/.claude/dfd/level3.md`** — 에이전트 내부 로직 흐름 (에이전트용, 필요 시)
+- **`{cwd}/.claude/dfd/sequence.md`** — 에이전트 간 메시지 순서 Sequence Diagram (에이전트용)
 - 사용자 확인 요청 (계획 생성 후 반드시 승인 대기)
 
 ## 성공 기준
