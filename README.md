@@ -26,6 +26,19 @@ Claude Code CLI를 기반으로 AI 에이전트가 계획·검증·수정을 분
 
 ---
 
+## SDLC 단계별 구조
+
+| SDLC 단계 | 담당 | 검토 | 훅 |
+|-----------|------|------|-----|
+| Requirements | requirements-analyst | requirements-reviewer | 보안 기본 체크 + 누락 확인 |
+| Design | threat-modeler | design-reviewer | 보안 기본 체크 + 누락 확인 |
+| Implementation | Claude 본체 | implementation-reviewer + error-fixer | 보안 기본 체크 + 누락 확인 |
+| Verification | test-engineer + verification-analyst | (verification-analyst가 검토) | 보안 기본 체크 |
+| Release | release-reviewer | (release-reviewer가 GO/NO-GO) | 보안 기본 체크 |
+| Maintenance | response-analyst + doc-updater | - | - |
+
+---
+
 ## 시스템 흐름 (FSM)
 
 ```mermaid
