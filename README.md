@@ -45,9 +45,12 @@ stateDiagram-v2
 
     Diagnostician --> ErrorFixer : FIXABLE 오류 (5개 이하)
     Diagnostician --> CodeReview : NON-FIXABLE 오류
-    Diagnostician --> [*] : 오류 없음
+    Diagnostician --> Checklist : 오류 없음
 
     ErrorFixer --> Diagnostician : 수정 완료 (재검증)
+
+    Checklist --> [*] : 통과
+    Checklist --> Coding : 실패 (재작업)
 
     note right of Planner : Bash 없음\n코드 실행 불가
     note right of PlanReview : Read 전용\n수정 불가
