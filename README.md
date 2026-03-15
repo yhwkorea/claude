@@ -12,8 +12,9 @@ Claude Code CLI를 기반으로 AI 에이전트가 계획·검증·수정을 분
 
 | 팀 | 에이전트 | 역할 | 없는 도구 | 모델 |
 |---|---|---|---|---|
-| 기획 | planner | 요구사항 인터뷰 → 계획서 작성 | Bash, Edit 없음 / Write는 계획서 저장에만 허용 | opus |
-| 기획 | plan-reviewer | 계획 검토 · 승인/반려 | Bash, Write, Edit (읽기만 가능) | opus |
+| 기획 | planner | 사용자 인터뷰 → 요구사항 확정 | Bash, Edit 없음 / Write는 requirements.md 저장에만 허용 | opus |
+| 기획 | designer | 요구사항 → DFD + Sequence Diagram 설계 | Bash, Edit 없음 / Write는 dfd/ 저장에만 허용 | opus |
+| 기획 | plan-reviewer | 설계 검토 · 승인/반려 | Bash, Write, Edit (읽기만 가능) | opus |
 | 기획 | doc-updater | README · 코드맵 생성 | - | sonnet |
 | 품질 | code-reviewer | OWASP 보안 포함 코드 검토 | Write, Edit (수정 불가, 검토만) | opus |
 | 품질 | error-fixer | FIXABLE 오류 수정 | - | sonnet |
@@ -33,8 +34,9 @@ stateDiagram-v2
     UserInput --> Planner : 3파일 이상 / 구조 변경
     UserInput --> TestEngineer : 단순 수정 (1~2파일)
 
-    Planner --> PlanReview : workspace.md 작성 완료
-    PlanReview --> Planner : 반려 (계획 보완 필요)
+    Planner --> Designer : requirements.md 확정
+    Designer --> PlanReview : dfd/ + workspace.md 완료
+    PlanReview --> Designer : 반려 (설계 보완 필요)
     PlanReview --> TestEngineer : 승인
 
     TestEngineer --> Coding : 테스트 작성 완료 (RED)
@@ -52,7 +54,8 @@ stateDiagram-v2
     Checklist --> [*] : 통과
     Checklist --> Coding : 실패 (재작업)
 
-    note right of Planner : Bash 없음\n코드 실행 불가
+    note right of Planner : 요구사항 수집만\nWrite는 requirements.md 저장에만
+    note right of Designer : 설계만\nWrite는 dfd/ 저장에만
     note right of PlanReview : Read 전용\n수정 불가
     note right of Diagnostician : 프롬프트로\n수정 금지
 ```
