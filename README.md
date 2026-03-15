@@ -12,8 +12,8 @@ Claude Code CLI를 기반으로 AI 에이전트가 계획·검증·수정을 분
 
 | 팀 | 에이전트 | 역할 | 도구 제한 |
 |---|---|---|---|
-| 기획 | planner | 요구사항 인터뷰 → 계획서 작성 | Read 전용 (코드 작성 불가) |
-| 기획 | plan-reviewer | 계획 검토 · 승인/반려 | Read 전용 (수정 불가) |
+| 기획 | planner | 요구사항 인터뷰 → 계획서 작성 | Bash 없음 (코드 실행 불가) |
+| 기획 | plan-reviewer | 계획 검토 · 승인/반려 | Read 전용 (계획 수정 불가) |
 | 기획 | doc-updater | README · 코드맵 생성 | - |
 | 품질 | code-reviewer | OWASP 보안 포함 코드 검토 | - |
 | 품질 | error-fixer | FIXABLE 오류 수정 | - |
@@ -52,7 +52,7 @@ stateDiagram-v2
 
     TestEngineer --> [*] : 테스트 완료 (80% 커버리지)
 
-    note right of Planner : Read 전용\n코드 작성 불가
+    note right of Planner : Bash 없음\n코드 실행 불가
     note right of PlanReview : Read 전용\n수정 불가
     note right of Diagnostician : 분류만\n수정 불가
 ```
