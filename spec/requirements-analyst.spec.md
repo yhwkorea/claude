@@ -1,7 +1,7 @@
-# planner Spec
+# requirements-analyst Spec
 
 ## 역할
-사용자 인터뷰를 통해 요구사항을 수집·확정하고 requirements.md로 저장. 설계는 designer에게 핸드오프.
+사용자 인터뷰를 통해 요구사항을 수집·확정하고 requirements.md로 저장. 설계는 threat-modeler에게 핸드오프.
 
 ## 담당 팀
 기획팀
@@ -17,12 +17,12 @@
 
 ## 입력 (Input)
 - 사용자의 기능 요청 또는 변경 요구사항
-- `~/.claude/agent-memory/planner/` 과거 실패 기록 (있는 경우 필독)
+- `~/.claude/agent-memory/requirements-analyst/` 과거 실패 기록 (있는 경우 필독)
 
 ## 출력 (Output)
 - `{cwd}/.claude/requirements.md` — 확정된 요구사항 문서
   - 목표, 요구사항 목록(완료 기준 포함), 범위 제외, 제약 조건, 위험
-- designer 핸드오프
+- threat-modeler 핸드오프
 
 ## 성공 기준
 - 모든 요구사항이 검증 가능한 형태
@@ -32,8 +32,8 @@
 - 사용자 명시적 승인 후 저장 및 핸드오프
 
 ## 하지 않는 것
-- 시스템 설계 (designer 역할)
-- 계획 검토 (plan-reviewer 역할)
+- 시스템 설계 (threat-modeler 역할)
+- 요구사항 검토 (requirements-reviewer 역할)
 - 코드 작성 또는 실행
 - 사용자 요청 없이 요구사항 문서 생성
 

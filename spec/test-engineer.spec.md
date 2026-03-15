@@ -35,8 +35,8 @@ TDD(RED→GREEN→REFACTOR) 방법론으로 단위/통합 테스트를 작성하
 - 내부 DB는 Mock 금지 — 테스트 DB 또는 인메모리 DB 사용
 
 ## 하지 않는 것
-- E2E 브라우저 테스트 작성 (e2e-runner 역할)
-- 오류 진단 (diagnostician 역할)
+- E2E 브라우저 테스트 작성 (release-reviewer 역할)
+- 오류 진단 (verification-analyst 역할)
 - 구현 코드 작성 (executor 역할)
 - 전체 파일을 컨텍스트 파악 목적으로 읽는 것 (기존 테스트 파일은 offset+limit으로만)
 

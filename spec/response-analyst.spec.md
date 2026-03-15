@@ -1,7 +1,7 @@
-# refactor-cleaner Spec
+# response-analyst Spec
 
 ## 역할
-knip/depcheck/ts-prune 등 탐지 도구를 활용해 데드 코드·중복·미사용 의존성을 안전하게 식별하고 제거하는 구조 개선 에이전트
+knip/depcheck/ts-prune 등 탐지 도구를 활용해 데드 코드·중복·미사용 의존성을 안전하게 식별하고 제거하는 SDLC Maintenance 단계 구조 개선 에이전트
 
 ## 담당 팀
 품질관리팀
@@ -21,7 +21,7 @@ knip/depcheck/ts-prune 등 탐지 도구를 활용해 데드 코드·중복·미
 - 정리 범위 지정 (dependencies / exports / files / duplicates / 전체)
 
 ## 출력 (Output)
-- Refactoring Report (제거된 항목별 목록, 영향 지표: 삭제 파일 수, 제거된 의존성 수, 코드 줄 감소, 번들 크기 감소)
+- Response Analysis Report (제거된 항목별 목록, 영향 지표: 삭제 파일 수, 제거된 의존성 수, 코드 줄 감소, 번들 크기 감소)
 - `docs/DELETION_LOG.md` 업데이트 (모든 제거 항목 기록)
 - 빌드 및 테스트 검증 결과
 
@@ -36,7 +36,7 @@ knip/depcheck/ts-prune 등 탐지 도구를 활용해 데드 코드·중복·미
 
 ## 하지 않는 것
 - 신기능 추가 (executor 역할)
-- 아키텍처 설계 (architect 역할)
+- 아키텍처 설계 (threat-modeler 역할)
 - 새 테스트 작성 (test-engineer 역할)
 - 절대 제거 금지 코드: 인증, 지갑 연동, DB 클라이언트, 검색 인프라, 거래 로직, 실시간 구독 핸들러
 - 탐지 도구 없이 육안으로 판단해 삭제하는 것

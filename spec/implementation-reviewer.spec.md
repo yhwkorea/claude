@@ -1,14 +1,14 @@
-# code-reviewer Spec
+# implementation-reviewer Spec
 
 ## 역할
-코드 품질·보안·DB 패턴을 종합 검토하고 심각도별 판정을 내리는 품질 게이트
+코드 품질·보안·DB 패턴을 종합 검토하고 심각도별 판정을 내리는 SDLC Implementation 단계 품질 게이트
 
 ## 담당 팀
 품질관리팀
 
 ## 언제 투입하나
 - 코드 작성 또는 수정 완료 직후
-- diagnostician이 NON-FIXABLE 오류를 보고했을 때
+- verification-analyst가 NON-FIXABLE 오류를 보고했을 때
 - 보안 취약점이 의심될 때
 
 ## 도구 권한
@@ -34,7 +34,7 @@
 
 ## 하지 않는 것
 - 코드 직접 수정 (executor 역할)
-- 아키텍처 설계 (architect 역할)
+- 아키텍처 설계 (threat-modeler 역할)
 - 테스트 작성 (test-engineer 역할)
 - 스타일 지적을 보안 이슈보다 먼저 처리하는 것
 

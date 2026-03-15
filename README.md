@@ -4,24 +4,25 @@
 
 Claude Code CLI를 기반으로 AI 에이전트가 계획·검증·수정을 분담하는 개발 자동화 시스템.
 
-기획·품질·테스트 3개 팀, 9개 에이전트로 역할 분리. 프롬프트가 아닌 **도구(Tools) 권한으로 역할 이탈을 구조적으로 차단**하는 것이 핵심 설계 포인트.
+기획·품질·테스트 3개 팀, 11개 에이전트로 역할 분리. 프롬프트가 아닌 **도구(Tools) 권한으로 역할 이탈을 구조적으로 차단**하는 것이 핵심 설계 포인트. SDLC 단계별로 에이전트가 배치되어 각 단계를 책임진다.
 
 ---
 
 ## 에이전트 구성
 
-| 팀 | 에이전트 | 역할 | 없는 도구 | 모델 |
-|---|---|---|---|---|
-| 기획 | planner | 사용자 인터뷰 → 요구사항 확정 | Bash, Edit 없음 / Write는 requirements.md 저장에만 허용 | opus |
-| 기획 | designer | 요구사항 → DFD + Sequence Diagram 설계 | Bash, Edit 없음 / Write는 dfd/ 저장에만 허용 | opus |
-| 기획 | plan-reviewer | 설계 검토 · 승인/반려 | Bash, Write, Edit (읽기만 가능) | opus |
-| 기획 | doc-updater | README · 코드맵 생성 | - | sonnet |
-| 품질 | code-reviewer | OWASP 보안 포함 코드 검토 | Write, Edit (수정 불가, 검토만) | opus |
-| 품질 | error-fixer | FIXABLE 오류 수정 | - | sonnet |
-| 품질 | refactor-cleaner | 미사용 코드 탐지 · 제거 | - | sonnet |
-| 테스트 | diagnostician | 빌드/타입/린트 실행 → 오류 분류 | - | sonnet |
-| 테스트 | test-engineer | TDD 기반 테스트 작성 | Glob | opus |
-| 테스트 | e2e-runner | Playwright E2E 테스트 | - | sonnet |
+| 팀 | 에이전트 | SDLC 단계 | 역할 | 없는 도구 | 모델 |
+|---|---|---|---|---|---|
+| 기획 | requirements-analyst | Requirements | 사용자 인터뷰 → 요구사항 확정 | Bash, Edit 없음 / Write는 requirements.md 저장에만 허용 | opus |
+| 기획 | requirements-reviewer | Requirements 검토 | 요구사항 검토 · 보안 누락 확인 · 승인/반려 | Bash, Write, Edit (읽기만 가능) | opus |
+| 기획 | threat-modeler | Design | 요구사항 → DFD + Sequence Diagram + STRIDE 위협 모델 | Bash, Edit 없음 / Write는 dfd/ 저장에만 허용 | opus |
+| 기획 | design-reviewer | Design 검토 | 설계 검토 · 위협 모델 검증 · 승인/반려 | Bash, Write, Edit (읽기만 가능) | opus |
+| 기획 | doc-updater | Maintenance | README · 코드맵 생성 | - | sonnet |
+| 품질 | implementation-reviewer | Implementation 검토 | OWASP 보안 포함 코드 검토 | Write, Edit (수정 불가, 검토만) | opus |
+| 품질 | error-fixer | Implementation | FIXABLE 오류 수정 | - | sonnet |
+| 품질 | response-analyst | Maintenance | 미사용 코드 탐지 · 제거 | - | sonnet |
+| 테스트 | verification-analyst | Verification | 빌드/타입/린트 실행 → 오류 분류 | - | sonnet |
+| 테스트 | test-engineer | Testing | TDD 기반 테스트 작성 | Glob | opus |
+| 테스트 | release-reviewer | Release | Playwright E2E 테스트 · 릴리스 게이트 GO/NO-GO | - | sonnet |
 
 ---
 
@@ -31,33 +32,41 @@ Claude Code CLI를 기반으로 AI 에이전트가 계획·검증·수정을 분
 stateDiagram-v2
     [*] --> UserInput : 작업 요청
 
-    UserInput --> Planner : 3파일 이상 / 구조 변경
+    UserInput --> RequirementsAnalyst : 3파일 이상 / 구조 변경
     UserInput --> TestEngineer : 단순 수정 (1~2파일)
 
-    Planner --> Designer : requirements.md 확정
-    Designer --> PlanReview : dfd/ + workspace.md 완료
-    PlanReview --> Designer : 반려 (설계 보완 필요)
-    PlanReview --> TestEngineer : 승인
+    RequirementsAnalyst --> RequirementsReviewer : requirements.md 작성 완료
+    RequirementsReviewer --> RequirementsAnalyst : 반려 (요구사항 보완 필요)
+    RequirementsReviewer --> ThreatModeler : 승인
+
+    ThreatModeler --> DesignReview : dfd/ + workspace.md 완료
+    DesignReview --> ThreatModeler : 반려 (설계 보완 필요)
+    DesignReview --> TestEngineer : 승인
 
     TestEngineer --> Coding : 테스트 작성 완료 (RED)
 
-    Coding --> CodeReview : 코드 작성 완료 (GREEN)
-    CodeReview --> Coding : CRITICAL/HIGH 이슈 발견
-    CodeReview --> Diagnostician : 승인
+    Coding --> ImplementationReview : 코드 작성 완료 (GREEN)
+    ImplementationReview --> Coding : CRITICAL/HIGH 이슈 발견
+    ImplementationReview --> VerificationAnalyst : 승인
 
-    Diagnostician --> ErrorFixer : FIXABLE 오류 (5개 이하)
-    Diagnostician --> CodeReview : NON-FIXABLE 오류
-    Diagnostician --> Checklist : 오류 없음
+    VerificationAnalyst --> ErrorFixer : FIXABLE 오류 (5개 이하)
+    VerificationAnalyst --> ImplementationReview : NON-FIXABLE 오류
+    VerificationAnalyst --> Checklist : 오류 없음
 
-    ErrorFixer --> Diagnostician : 수정 완료 (재검증)
+    ErrorFixer --> VerificationAnalyst : 수정 완료 (재검증)
 
-    Checklist --> [*] : 통과
+    Checklist --> ReleaseReviewer : E2E 검증 필요
+    ReleaseReviewer --> Coding : NO-GO (수정 필요)
+    ReleaseReviewer --> [*] : GO (릴리스 승인)
+
+    Checklist --> [*] : 통과 (E2E 불필요)
     Checklist --> Coding : 실패 (재작업)
 
-    note right of Planner : 요구사항 수집만\nWrite는 requirements.md 저장에만
-    note right of Designer : 설계만\nWrite는 dfd/ 저장에만
-    note right of PlanReview : Read 전용\n수정 불가
-    note right of Diagnostician : 프롬프트로\n수정 금지
+    note right of RequirementsAnalyst : 요구사항 수집만\nWrite는 requirements.md 저장에만
+    note right of ThreatModeler : 설계만\nWrite는 dfd/ 저장에만
+    note right of RequirementsReviewer : Read 전용\n수정 불가
+    note right of DesignReview : Read 전용\n수정 불가
+    note right of VerificationAnalyst : 프롬프트로\n수정 금지
 ```
 
 ---
