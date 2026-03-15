@@ -24,6 +24,7 @@ requirements-analyst가 확정한 요구사항을 받아 DFD(Level 0~3)와 Seque
 - **`{cwd}/.claude/dfd/level3.md`** — 내부 로직 흐름 (에이전트용, 필요 시)
 - **`{cwd}/.claude/dfd/sequence.md`** — 에이전트 간 메시지 순서 Sequence Diagram (에이전트용)
 - **`{cwd}/.claude/dfd/threats.md`** — STRIDE 위협 모델 (신뢰 경계, 위협 목록, 완화 방안)
+- **`{cwd}/.claude/checklist.md`** — DFD Level 3 기반 체크리스트 자동 생성 (TODO/IN_PROGRESS/DONE/FAILED)
 - design-reviewer 핸드오프
 
 ## 성공 기준
