@@ -10,19 +10,19 @@ Claude Code CLI를 기반으로 AI 에이전트가 계획·검증·수정을 분
 
 ## 에이전트 구성
 
-| 팀 | 에이전트 | SDLC 단계 | 역할 | 없는 도구 | 모델 |
-|---|---|---|---|---|---|
-| 기획 | requirements-analyst | Requirements | 사용자 인터뷰 → 요구사항 확정 | Bash, Edit 없음 / Write는 requirements.md 저장에만 허용 | opus |
-| 기획 | requirements-reviewer | Requirements 검토 | 요구사항 검토 · 보안 누락 확인 · 승인/반려 | Bash, Write, Edit (읽기만 가능) | opus |
-| 기획 | threat-modeler | Design | 요구사항 → DFD + Sequence Diagram + STRIDE 위협 모델 | Bash, Edit 없음 / Write는 dfd/ 저장에만 허용 | opus |
-| 기획 | design-reviewer | Design 검토 | 설계 검토 · 위협 모델 검증 · 승인/반려 | Bash, Write, Edit (읽기만 가능) | opus |
-| 기획 | doc-updater | Maintenance | README · 코드맵 생성 | - | sonnet |
-| 품질 | implementation-reviewer | Implementation 검토 | OWASP 보안 포함 코드 검토 | Write, Edit (수정 불가, 검토만) | opus |
-| 품질 | error-fixer | Implementation | FIXABLE 오류 수정 | - | sonnet |
-| 품질 | response-analyst | Maintenance | 미사용 코드 탐지 · 제거 | - | sonnet |
-| 테스트 | verification-analyst | Verification | 빌드/타입/린트 실행 → 오류 분류 | - | sonnet |
-| 테스트 | test-engineer | Testing | TDD 기반 테스트 작성 | Glob | opus |
-| 테스트 | release-reviewer | Release | Playwright E2E 테스트 · 릴리스 게이트 GO/NO-GO | - | sonnet |
+| SDLC 단계 | 에이전트 | 역할 | 없는 도구 | 모델 |
+|---|---|---|---|---|
+| Requirements | requirements-analyst | 사용자 인터뷰 → 요구사항 확정 | Bash, Edit 없음 / Write는 requirements.md 저장에만 | opus |
+| Requirements 검토 | requirements-reviewer | 요구사항 검토 · 보안 누락 확인 · 승인/반려 | Bash, Write, Edit (읽기만 가능) | opus |
+| Design | threat-modeler | 요구사항 → DFD + Sequence Diagram + STRIDE 위협 모델 | Bash, Edit 없음 / Write는 dfd/ 저장에만 | opus |
+| Design 검토 | design-reviewer | 설계 검토 · 위협 모델 검증 · 승인/반려 | Bash, Write, Edit (읽기만 가능) | opus |
+| Implementation | error-fixer | FIXABLE 오류 수정 | - | sonnet |
+| Implementation 검토 | implementation-reviewer | OWASP 보안 포함 코드 검토 | Write, Edit (수정 불가, 검토만) | opus |
+| Verification | test-engineer | TDD 기반 테스트 작성 | Glob | opus |
+| Verification | verification-analyst | 빌드/타입/린트 실행 → 오류 분류 | - | sonnet |
+| Release | release-reviewer | E2E 테스트 · 릴리스 게이트 GO/NO-GO | - | sonnet |
+| Maintenance | response-analyst | 미사용 코드 탐지 · 제거 | - | sonnet |
+| Maintenance | doc-updater | README · 코드맵 생성 | - | sonnet |
 
 ---
 
