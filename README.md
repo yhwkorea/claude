@@ -10,17 +10,17 @@ Claude Code CLI를 기반으로 AI 에이전트가 계획·검증·수정을 분
 
 ## 에이전트 구성
 
-| 팀 | 에이전트 | 역할 | 도구 제한 |
-|---|---|---|---|
-| 기획 | planner | 요구사항 인터뷰 → 계획서 작성 | Bash 없음 (코드 실행 불가) |
-| 기획 | plan-reviewer | 계획 검토 · 승인/반려 | Read 전용 (계획 수정 불가) |
-| 기획 | doc-updater | README · 코드맵 생성 | - |
-| 품질 | code-reviewer | OWASP 보안 포함 코드 검토 | - |
-| 품질 | error-fixer | FIXABLE 오류 수정 | - |
-| 품질 | refactor-cleaner | 미사용 코드 탐지 · 제거 | - |
-| 테스트 | diagnostician | 빌드/타입/린트 실행 → 오류 분류 | Bash 있음 (프롬프트로 수정 금지) |
-| 테스트 | test-engineer | TDD 기반 테스트 작성 | - |
-| 테스트 | e2e-runner | Playwright E2E 테스트 | - |
+| 팀 | 에이전트 | 역할 | 없는 도구 | 모델 |
+|---|---|---|---|---|
+| 기획 | planner | 요구사항 인터뷰 → 계획서 작성 | Bash, Edit (코드 실행·수정 불가) | opus |
+| 기획 | plan-reviewer | 계획 검토 · 승인/반려 | Bash, Write, Edit (읽기만 가능) | opus |
+| 기획 | doc-updater | README · 코드맵 생성 | - | sonnet |
+| 품질 | code-reviewer | OWASP 보안 포함 코드 검토 | Write, Edit (수정 불가, 검토만) | opus |
+| 품질 | error-fixer | FIXABLE 오류 수정 | - | sonnet |
+| 품질 | refactor-cleaner | 미사용 코드 탐지 · 제거 | - | sonnet |
+| 테스트 | diagnostician | 빌드/타입/린트 실행 → 오류 분류 | - | sonnet |
+| 테스트 | test-engineer | TDD 기반 테스트 작성 | Glob | opus |
+| 테스트 | e2e-runner | Playwright E2E 테스트 | - | sonnet |
 
 ---
 
