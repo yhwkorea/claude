@@ -12,7 +12,7 @@ Claude Code CLI를 기반으로 AI 에이전트가 계획·검증·수정을 분
 
 | 팀 | 에이전트 | 역할 | 없는 도구 | 모델 |
 |---|---|---|---|---|
-| 기획 | planner | 요구사항 인터뷰 → 계획서 작성 | Bash, Edit (코드 실행·수정 불가) | opus |
+| 기획 | planner | 요구사항 인터뷰 → 계획서 작성 | Bash, Edit 없음 / Write는 계획서 저장에만 허용 | opus |
 | 기획 | plan-reviewer | 계획 검토 · 승인/반려 | Bash, Write, Edit (읽기만 가능) | opus |
 | 기획 | doc-updater | README · 코드맵 생성 | - | sonnet |
 | 품질 | code-reviewer | OWASP 보안 포함 코드 검토 | Write, Edit (수정 불가, 검토만) | opus |
