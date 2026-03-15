@@ -18,7 +18,7 @@ Claude Code CLI를 기반으로 AI 에이전트가 계획·검증·수정을 분
 | 품질 | code-reviewer | OWASP 보안 포함 코드 검토 | - |
 | 품질 | error-fixer | FIXABLE 오류 수정 | - |
 | 품질 | refactor-cleaner | 미사용 코드 탐지 · 제거 | - |
-| 테스트 | diagnostician | 빌드/타입/린트 실행 → 오류 분류 | 분류만 (수정 불가) |
+| 테스트 | diagnostician | 빌드/타입/린트 실행 → 오류 분류 | Bash 있음 (프롬프트로 수정 금지) |
 | 테스트 | test-engineer | TDD 기반 테스트 작성 | - |
 | 테스트 | e2e-runner | Playwright E2E 테스트 | - |
 
@@ -31,30 +31,27 @@ stateDiagram-v2
     [*] --> UserInput : 작업 요청
 
     UserInput --> Planner : 3파일 이상 / 구조 변경
-    UserInput --> Coding : 단순 수정 (1~2파일)
+    UserInput --> TestEngineer : 단순 수정 (1~2파일)
 
     Planner --> PlanReview : workspace.md 작성 완료
     PlanReview --> Planner : 반려 (계획 보완 필요)
-    PlanReview --> Coding : 승인
+    PlanReview --> TestEngineer : 승인
 
-    Coding --> CodeReview : 코드 작성 완료
+    TestEngineer --> Coding : 테스트 작성 완료 (RED)
+
+    Coding --> CodeReview : 코드 작성 완료 (GREEN)
     CodeReview --> Coding : CRITICAL/HIGH 이슈 발견
     CodeReview --> Diagnostician : 승인
 
     Diagnostician --> ErrorFixer : FIXABLE 오류 (5개 이하)
     Diagnostician --> CodeReview : NON-FIXABLE 오류
-    Diagnostician --> Done : 오류 없음
+    Diagnostician --> [*] : 오류 없음
 
     ErrorFixer --> Diagnostician : 수정 완료 (재검증)
 
-    Done --> TestEngineer : 신기능 / 버그 수정
-    Done --> [*] : 단순 수정
-
-    TestEngineer --> [*] : 테스트 완료 (80% 커버리지)
-
     note right of Planner : Bash 없음\n코드 실행 불가
     note right of PlanReview : Read 전용\n수정 불가
-    note right of Diagnostician : 분류만\n수정 불가
+    note right of Diagnostician : 프롬프트로\n수정 금지
 ```
 
 ---
