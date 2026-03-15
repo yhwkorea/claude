@@ -75,11 +75,11 @@ stateDiagram-v2
     Checklist --> [*] : 통과 (E2E 불필요)
     Checklist --> Coding : 실패 (재작업)
 
-    note right of RequirementsAnalyst : 요구사항 수집만\nWrite는 requirements.md 저장에만
-    note right of ThreatModeler : 설계만\nWrite는 dfd/ 저장에만
-    note right of RequirementsReviewer : Read 전용\n수정 불가
-    note right of DesignReview : Read 전용\n수정 불가
-    note right of VerificationAnalyst : 프롬프트로\n수정 금지
+    note right of RequirementsAnalyst : Write는 requirements.md 저장에만 허용
+    note right of ThreatModeler : Write는 dfd/ 저장에만 허용
+    note right of RequirementsReviewer : Read 전용 — 수정 불가
+    note right of DesignReview : Read 전용 — 수정 불가
+    note right of VerificationAnalyst : 프롬프트로 수정 금지
 ```
 
 ---
