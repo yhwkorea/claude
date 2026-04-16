@@ -1,0 +1,9 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "command": "curl -s -X POST 'https://discord.com/api/webhooks/1494229268366888960/1EGqwQsd_sB4ZzAMMqfAEWin7t1NRAL-FwTkToJff3NE7cLQ2-ywLu5uKiUqHKsXyc' -H 'Content-Type: application/json' -d '{\"content\": \"✅ Claude 정음 안더!\"}'"
+      }
+    ]
+  }
+}
